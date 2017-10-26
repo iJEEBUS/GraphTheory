@@ -71,6 +71,28 @@ class Graph(object):
 		return res
 
 
+	def find_path(self, start_vertex, end_vertex, path=None):
+		"""
+		Find a path from start_vertex to end_vertex in a graph.
+		"""
+		if path == None:
+			path = []
+		graph = self.__graph_dict
+		path += [start_vertex]
+		if start_vertex == end_vertex:
+			return path
+		if start_vertex not in graph:
+			return None
+		for vertex in graph[start_vertex]:
+			if vertex not in path:
+				extended_path = self.find_path(vertex, end_vertex, path)
+
+				if extended_path:
+					return extended_path
+		return None
+
+
+
 
 if __name__ == "__main__":
     g = { "a" : ["d"],
@@ -83,31 +105,34 @@ if __name__ == "__main__":
 
     graph = Graph(g)
 
-    print("Vertices of graph:")
-    print(graph.vertices())
+    print 'Path from \'a\' to \'b\': '
+    print graph.find_path("a", "b")
 
-    print("Edges of graph:")
-    print(graph.edges())
-
-    print("Add vertex:")
-    graph.addVertex("z")
-
-    print("Vertices of graph:")
-    print(graph.vertices())
- 
-    print("Add an edge:")
-    graph.addEdge({"a","z"})
+'''   print("Vertices of graph:")
+       print(graph.vertices())
+   
+       print("Edges of graph:")
+       print(graph.edges())
+   
+       print("Add vertex:")
+       graph.addVertex("z")
+   
+       print("Vertices of graph:")
+       print(graph.vertices())
     
-    print("Vertices of graph:")
-    print(graph.vertices())
-
-    print("Edges of graph:")
-    print(graph.edges())
-
-    print('Adding an edge {"x","y"} with new vertices:')
-    graph.addEdge({"x","y"})
-    print("Vertices of graph:")
-    print(graph.vertices())
-    print("Edges of graph:")
-    print(graph.edges())
+       print("Add an edge:")
+       graph.addEdge({"a","z"})
+       
+       print("Vertices of graph:")
+       print(graph.vertices())
+   
+       print("Edges of graph:")
+       print(graph.edges())
+   
+       print('Adding an edge {"x","y"} with new vertices:')
+       graph.addEdge({"x","y"})
+       print("Vertices of graph:")
+       print(graph.vertices())
+       print("Edges of graph:")
+       print(graph.edges())'''
 
